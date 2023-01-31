@@ -1,3 +1,29 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f0f8ff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.navbar {
+	width: 100%;
+	height: 70px;
+	background-color: #e8e40a;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.brand {
+    font-size: 40px;
+    font-weight: 600;
+    color: #2c444e;
+    position: relative;
+    display: flex;
+    align-items: normal;
+    justify-content: center;
+}
 .heading {
     font-size: 40px;
     font-weight: 600;
@@ -30,11 +56,11 @@
 
 
 .left {
-    flex: 1.5;
-    overflow: hidden;
-    position: relative;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .img {
@@ -82,7 +108,7 @@
     font-weight: 500;
     padding: 12px 25px;
     color: white;
-    background-color: #ffc801;
+    background-color: #393531;
     border-radius: 12px;
     margin: 10px 0 0 0;
     outline: none;

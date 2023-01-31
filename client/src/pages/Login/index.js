@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
+import {useState} from 'react';
+import axios from "axios"
 
 function Login() {
 	const googleAuth = () => {
@@ -8,28 +10,78 @@ function Login() {
 			"_self"
 		);
 	};
+
+	const [data, setData] = useState({
+		email: "",
+		password: "",
+	})
+	const handleChange = ({ currentTarget: input }) => {
+		setData({ ...data, [input.name]: input.value })
+	}
+	const [error, setError] = useState("");
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		try {
+			const url = "http://localhost:8080/loginUser";
+			const { data: res } = await axios.post(url, data);
+			localStorage.setItem("token", res.user);
+			window.location = "/";
+			
+			console.log(res.message)
+		}
+		catch (error) {
+			if (
+				error.response &&
+				error.response.status >= 400 &&
+				error.response.status <= 500
+			) {
+				setError(error.response.data.message);
+			}
+		}
+
+	}
 	return (
 		<div className={styles.container}>
 			<h1 className={styles.heading}>Log in Form</h1>
-			<div className={styles.form_container}>
+			<form className={styles.form_container} onSubmit={handleSubmit}>
 				<div className={styles.left}>
 					<img className={styles.img} src="./images/login.jpg" alt="login" />
 				</div>
 				<div className={styles.right}>
 					<h2 className={styles.from_heading}>Members Log in</h2>
-					<input type="text" className={styles.input} placeholder="Email" />
-					<input type="text" className={styles.input} placeholder="Password" />
+					<input 
+					type="email"
+						placeholder="Email"
+						name='email'
+						onChange={handleChange}
+						value={data.email}
+						required
+						className={styles.input}
+
+					/>
+					<input 
+					type="text"
+						placeholder="Password"
+						name='password'
+						onChange={handleChange}
+						value={data.password}
+						required
+						className={styles.input}
+
+					/>
+						{error && <div className={styles.error_msg}>{error}</div>}
 					<button className={styles.btn}>Log In</button>
 					<p className={styles.text}>or</p>
 					<button className={styles.google_btn} onClick={googleAuth}>
 						<img src="./images/google.png" alt="google icon" />
-						<span>Sing in with Google</span>
+						<span>Sign in with Google</span>
 					</button>
 					<p className={styles.text}>
-						New Here ? <Link to="/signup">Sing Up</Link>
+						New Here ? <Link to="/signup">Sign Up</Link>
 					</p>
 				</div>
-			</div>
+			</form>
 		</div>
 	);
 }

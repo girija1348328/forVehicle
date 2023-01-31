@@ -2,8 +2,10 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Home from "./pages/Home";
+import Service from "./pages/ServiceForm"
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Footer from "./components/VehicleParts/Footer"
 import "./App.css";
 
 function App() {
@@ -14,7 +16,7 @@ function App() {
 			const url = `${process.env.REACT_APP_API_URL}/auth/login/success`;
 			const { data } = await axios.get(url, { withCredentials: true });
 			setUser(data.user._json);
-		} catch (err) {
+			} catch (err) {
 			console.log(err);
 		}
 	};
@@ -40,6 +42,13 @@ function App() {
 					path="/signup"
 					element={user ? <Navigate to="/" /> : <Signup />}
 				/>
+					<Route
+					exact
+					path="/"
+					element={user ? <Home user={user} /> : <Navigate to="/login" />}
+				/>
+				<Route path="/service" exact element={<Service />}/>
+				<Route Path="/parts" exact element={<Footer />}/>
 			</Routes>
 		</div>
 	);
