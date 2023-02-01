@@ -1,8 +1,10 @@
 const mongoose = require("mongoose")
 
 const partsSchema = new mongoose.Schema({
-    company : {type:String,required:true,trim:true},
-    partsName : {type :String,required:true,trim:true},
+    partsName : {type:String,required:true,trim:true},
+    description : {type :String,required:true,trim:true},
+    productImage : {type : String,required:true,trim:true},
+    price :{type:Number,required:true,trim:true},
     isDeleted: false
 },
 {

@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const multer = require("multer")
 const mongoose = require("mongoose")
 const cors = require("cors");
 const passport = require("passport");
@@ -10,6 +11,7 @@ const passportStrategy = require("./passport");
 const app = express();
 
 app.use(express.json());
+app.use(multer().any());
 
 //monggose connection
 mongoose.connect("mongodb+srv://linagodbole99:dAix1EtU6C6yxJDR@cluster0.oip3eje.mongodb.net/forVehicleGirija")

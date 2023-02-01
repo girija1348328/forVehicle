@@ -7,7 +7,7 @@ const createUser = async function(req,res) {
     try {
         const data = req.body
         
-
+        
         let response = await userModel.create(data)
         res.status(201).send({ status: true, message: "userCreate successfully" })
     }
