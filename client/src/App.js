@@ -5,11 +5,13 @@ import Home from "./pages/Home";
 import Service from "./pages/ServiceForm"
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Footer from "./components/VehicleParts/Footer"
+import VehicleParts from "./pages/VehicleParts/index"
 import "./App.css";
 
 function App() {
-	const [user, setUser] = useState(null);
+	const [user, setUser] = useState(localStorage.getItem("token"));
+	// const [user2,setUserTwo] = useState(null)
+	// const user = localStorage.getItem("token");
 
 	const getUser = async () => {
 		try {
@@ -21,35 +23,41 @@ function App() {
 		}
 	};
 
+	// const getUserByDB = async () =>{
+	// 	try {
+	// 		const url = `${process.env.REACT_APP_API_URL}/getUser`;
+	// 		const { data } = await axios.get(url, { withCredentials: true });
+	// 		setUserTwo(data.user._json);
+	// 		} catch (err) {
+	// 		console.log(err);
+	// 	}
+	// }
+
 	useEffect(() => {
 		getUser();
+		
 	}, []);
 
 	return (
 		<div className="container">
 			<Routes>
-				<Route
+			
+				{/* <Route
 					exact
 					path="/"
-					element={user ? <Home user={user} /> : <Navigate to="/login" />}
-				/>
-				<Route
-					exact
-					path="/login"
-					element={user ? <Navigate to="/" /> : <Login />}
-				/>
-				<Route
-					path="/signup"
-					element={user ? <Navigate to="/" /> : <Signup />}
-				/>
-					<Route
-					exact
-					path="/"
-					element={user ? <Home user={user} /> : <Navigate to="/login" />}
-				/>
+					element={user|| token? <Home user={user} /> : <Navigate to="/login" />}
+					// element = {<Home/>}
+				/> */}
+				{user && <Route path="/" exact element={<Home />} />}
+				<Route exact path="/login" element={<Login />}/>
+			
+				<Route path="/signup" element={user ? <Navigate to="/" /> : <Signup />}/>
 				<Route path="/service" exact element={<Service />}/>
-				<Route Path="/parts" exact element={<Footer />}/>
+				<Route path ="/vehicleParts" exact element={<VehicleParts />}/>
+				
 			</Routes>
+		
+			
 		</div>
 	);
 }

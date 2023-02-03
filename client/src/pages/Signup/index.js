@@ -29,6 +29,7 @@ function Signup() {
 		try {
 			const url = "http://localhost:8080/createUser";
 			const { data: res } = await axios.post(url, data);
+			
 			navigate("/login")
 			console.log(res.message)
 		}

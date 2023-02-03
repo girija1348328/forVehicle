@@ -1,12 +1,18 @@
 import styles from "./styles.module.css";
-import {  Link } from "react-router-dom";
+import {  Link, useNavigate } from "react-router-dom";
 
 
 function Home() {
 	// const user = userDetails.user;
+	const navigate = useNavigate()
 	const logout = () => {
-		window.open(`${process.env.REACT_APP_API_URL}/auth/logout`, "_self");
+		localStorage.removeItem("token")
+		// window.open(`${process.env.REACT_APP_API_URL}/auth/logout`, "_self");
+		navigate("/login")
+		
+
 	};
+	
 	return (
 		
 	<div>
@@ -20,14 +26,13 @@ function Home() {
 			<h1 className={styles.heading}>Home</h1>
 			<div className={styles.form_container}>
 				<div className={styles.left}>
-				<Link to ={"/parts"}>
-				<button className={styles.btn}>
-						Parts 
-			   </button>
-				</Link>
-				
-				
+				<Link to = {"/vehicleParts"}>
+					<button className={styles.btn}>
+					Parts
+					</button>
+					</Link>
 				</div>
+				
 				<div className={styles.right}>
 				   <Link to = {"/service"}>
 					<button className={styles.btn}>

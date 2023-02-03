@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 import {useState} from 'react';
 import axios from "axios"
@@ -10,7 +10,7 @@ function Login() {
 			"_self"
 		);
 	};
-
+	const navigate = useNavigate()
 	const [data, setData] = useState({
 		email: "",
 		password: "",
@@ -26,7 +26,7 @@ function Login() {
 			const url = "http://localhost:8080/loginUser";
 			const { data: res } = await axios.post(url, data);
 			localStorage.setItem("token", res.user);
-			window.location = "/";
+			navigate("/")
 			
 			console.log(res.message)
 		}
@@ -56,17 +56,17 @@ function Login() {
 						name='email'
 						onChange={handleChange}
 						value={data.email}
-						required
+					
 						className={styles.input}
 
 					/>
 					<input 
-					type="text"
+					type="password"
 						placeholder="Password"
 						name='password'
 						onChange={handleChange}
 						value={data.password}
-						required
+						
 						className={styles.input}
 
 					/>
